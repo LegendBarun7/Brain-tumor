@@ -36,6 +36,12 @@ for r, d, f in os.walk('/kaggle/input/brain-mri-images-for-brain-tumor-detection
 
                 print(f"Total images loaded: {len(data)}")
 print(f"Total labels loaded: {len(labels)}")
+data = np.array(data) / 255.0  # Normalizing images
+labels = np.array(labels)
+
+# Splitting the dataset
+x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, shuffle=True, random_state=0)
+
 model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
     MaxPooling2D(pool_size=(2, 2)),
